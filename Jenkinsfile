@@ -2,11 +2,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('clean') {
             steps {
-                sh 'make' 
-                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
-            }
+                bat 'mvnclean; 
+         }
         }
+        stage('test'){
+            steps{
+                bat 'mvn test';
+         }        
+        }     
+        stage ('build') {
+             steps{
+                    bat 'mvn package'
+       }            
+      }
     }
 }
+ 
